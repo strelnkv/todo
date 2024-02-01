@@ -1,0 +1,69 @@
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
+  background-color: #171723;
+}
+.container {
+  padding: 80px 500px;
+}
+.input {
+  display: block;
+  background-color: #24273c;
+  width: 444px;
+  height: 60px;
+  border: none;
+  border-radius: 5px;
+  padding-left: 54px;
+  font-size: 17px;
+}
+.input__button {
+  position: relative;
+}
+.input__button::before {
+  content: ""; /* создаем пустой псевдоэлемент */
+  position: absolute;
+  left: 16px; /* задаем позицию изображения */
+  top: 50%; /* центрируем вертикально */
+  transform: translateY(-50%); /* корректируем позицию вертикально */
+  background-image: url("./images/plus-sign-button\ \(1\).png"); /* задаем путь к изображению */
+  background-size: 20px 20px; /* задаем размеры изображения */
+  background-repeat: no-repeat; /* отключаем повторение */
+  width: 20px;
+  height: 20px;
+}
+.todo_list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  background-color: #24273c;
+  width: 500px;
+  border-radius: 5px;
+}
+.todo {
+  padding-left: 17px;
+  display: flex;
+  align-items: center;
+}
+.input__check {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #838590; /* цвет границы чекбокса */
+  background-color: transparent;
+  margin-left: 16px;
+}
+.input__check:checked {
+  background-color: #a6fbc0;
+}
+.input__list {
+  padding-top: 30px;
+}
+.delete {
+  cursor: pointer;
+}
+.line-through {
+  text-decoration: line-through;
+  color: grey;
+}
