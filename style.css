@@ -4,7 +4,9 @@
   background-color: #171723;
 }
 .container {
-  padding: 80px 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .input {
   display: block;
@@ -16,13 +18,14 @@
   padding-left: 54px;
   font-size: 17px;
 }
+
 .input__button {
   position: relative;
 }
 .input__button::before {
-  content: ""; /* создаем пустой псевдоэлемент */
+  content: "";
   position: absolute;
-  left: 16px; /* задаем позицию изображения */
+  left: 16px;
   top: 50%; /* центрируем вертикально */
   transform: translateY(-50%); /* корректируем позицию вертикально */
   background-image: url("./images/plus-sign-button\ \(1\).png"); /* задаем путь к изображению */
@@ -33,7 +36,7 @@
 }
 .todo_list {
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
   margin-top: 2px;
   background-color: #24273c;
@@ -66,4 +69,15 @@
 .line-through {
   text-decoration: line-through;
   color: grey;
+}
+@media (max-width: 440px) {
+  .input {
+    width: 87%;
+  }
+  .todo_list {
+    width: 100%;
+  }
+  .container {
+    align-items: stretch;
+  }
 }

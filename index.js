@@ -68,4 +68,7 @@ function addCheckboxChangeEvent() {
 }
 taskInput.addEventListener("keydown", addTodo);
 
-deleted.addEventListener("click", function () {});
+deleted.addEventListener("click", function () {
+  window.localStorage.removeItem("todoItems");
+  todoList.innerHTML = "";
+});
