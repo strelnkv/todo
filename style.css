@@ -72,10 +72,10 @@
 }
 @media (max-width: 440px) {
   .input {
-    width: 85%;
+    width: 75%;
   }
   .todo_list {
-    width: 99%;
+    width: 89%;
   }
   .container {
     align-items: stretch;
