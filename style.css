@@ -27,6 +27,7 @@ h1 {
   border: none;
   font-size: 17px;
   margin-left: 18px;
+  margin-right: 20px;
   width: 100%;
 }
 .input__button {
@@ -90,6 +91,12 @@ h1 {
 .line-through {
   text-decoration: line-through;
   color: grey;
+}
+.cart_img {
+  background-color: #24273c;
+  width: 17px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 @media (max-width: 440px) {
   .input {

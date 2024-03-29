@@ -13,6 +13,7 @@ todoItems = todoItems ? JSON.parse(todoItems) : [];
 render();
 
 function render() {
+  todoList.innerHTML = "";
   console.log(todoItems);
   for (let i = 0; i < todoItems.length; i++) {
     // console.log(todoItems[i]);
@@ -24,11 +25,18 @@ function render() {
   <label class='input todo ${
     todoItems[i].done ? "line-through" : ""
   }' for="task-${i}">${todoItems[i].task}</label>
+  <img
+    src="./images/recycle-bin (1).png"
+    alt=""
+    class="cart_img task-${i}"
+
+  />
   </div>
   `;
     todoList.innerHTML += taskHTML;
   }
   addCheckboxChangeEvent();
+  deleteTask();
 }
 function addTodo(task) {
   todoItems.push({ task, done: false });
@@ -43,10 +51,17 @@ function addTodo(task) {
     <label class='input todo' for="task-${todoItems.length - 1}">${
       todoItems[todoItems.length - 1].task
     }</label>
+    <img
+    src="./images/recycle-bin (1).png"
+    alt=""
+    class="cart_img task-${todoItems.length - 1}"
+
+  />
     </div>
     `;
     taskInput.value = "";
     addCheckboxChangeEvent();
+    deleteTask();
   }
 }
 
@@ -69,6 +84,19 @@ function addCheckboxChangeEvent() {
         todoItems[index].done = false;
       }
       window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
+    });
+  });
+}
+
+function deleteTask() {
+  const carts = document.querySelectorAll(".cart_img");
+  carts.forEach((cart) => {
+    cart.addEventListener("click", function (evt) {
+      const taskId = evt.target.className.split(" ")[1];
+      const index = taskId.split("-")[1];
+      todoItems.splice(index, 1);
+      window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      render();
     });
   });
 }
