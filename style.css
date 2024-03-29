@@ -26,7 +26,8 @@ h1 {
   background-color: #24273c;
   border: none;
   font-size: 17px;
-  padding-left: 18px;
+  margin-left: 18px;
+  width: 100%;
 }
 .input__button {
   position: relative;
