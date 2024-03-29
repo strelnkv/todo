@@ -1,5 +1,6 @@
 const inputContainer = document.querySelector(".input__button");
 const taskInput = document.querySelector(".main__input");
+const addButton = document.querySelector(".add__todo__btn");
 
 const todoList = document.querySelector(".input__list");
 const deleted = document.querySelector(".delete");
@@ -29,12 +30,10 @@ function render() {
   }
   addCheckboxChangeEvent();
 }
-
-function addTodo(event) {
-  const task = taskInput.value.trim();
-  if (task !== "" && event.key === "Enter") {
-    todoItems.push({ task, done: false });
-
+function addTodo(task) {
+  todoItems.push({ task, done: false });
+  task = task.trim();
+  if (task !== "") {
     window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
 
     todoList.innerHTML += `
@@ -48,6 +47,13 @@ function addTodo(event) {
     `;
     taskInput.value = "";
     addCheckboxChangeEvent();
+  }
+}
+
+function addTodoByEnter(event) {
+  const task = taskInput.value.trim();
+  if (task !== "" && event.key === "Enter") {
+    addTodo(task);
   }
 }
 
@@ -66,7 +72,9 @@ function addCheckboxChangeEvent() {
     });
   });
 }
-taskInput.addEventListener("keydown", addTodo);
+
+taskInput.addEventListener("keydown", addTodoByEnter);
+addButton.addEventListener("click", () => addTodo(taskInput.value.trim()));
 
 deleted.addEventListener("click", function () {
   window.localStorage.removeItem("todoItems");
