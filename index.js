@@ -19,8 +19,8 @@ function render() {
 
   todoItems.forEach((item, index) => {
     const div = document.createElement("div");
+    div.classList.add("todo_list");
     div.innerHTML = `
-<div class="todo_list">
   <input class='input__check' type="checkbox" id="task-${index}" ${
       item.done ? "checked" : ""
     } data-index="${index}">
@@ -28,12 +28,11 @@ function render() {
     item.done ? "line-through" : ""
   }" for="task-${index}">${item.task}</label>
   <img src="./images/recycle-bin (1).png" alt="" class="cart_img" data-index="${index}">
-</div>
 `;
     if (item.done) {
-      doneTask.prepend(div);
+      doneTask.appendChild(div);
     } else {
-      todoList.appendChild(div);
+      todoList.prepend(div);
     }
   });
 
