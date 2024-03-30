@@ -21,26 +21,38 @@ render();
 function filter() {
   const active = document.querySelector(".input__list");
   const done = document.querySelector(".done__list");
-  todoItems.length === 0
-    ? filters.classList.add("none")
-    : filters.classList.remove("none");
+  if (todoItems.length === 0) {
+    filters.classList.add("none");
+  } else {
+    filters.classList.remove("none");
+    filtersAll.classList.add("color");
+  }
 
   filtersAll.innerHTML = `All(${todoItems.length})`;
   filtersAll.addEventListener("click", function () {
     todoList.classList.remove("none");
     doneTask.classList.remove("none");
+    filtersAll.classList.add("color");
+    filtersActive.classList.remove("color");
+    filtersFinished.classList.remove("color");
   });
 
   filtersActive.innerHTML = `Active(${active.children.length})`;
   filtersActive.addEventListener("click", function () {
     todoList.classList.remove("none");
     doneTask.classList.add("none");
+    filtersActive.classList.add("color");
+    filtersFinished.classList.remove("color");
+    filtersAll.classList.remove("color");
   });
 
   filtersFinished.innerHTML = `Finished(${done.children.length})`;
   filtersFinished.addEventListener("click", function () {
     doneTask.classList.remove("none");
     todoList.classList.add("none");
+    filtersFinished.classList.add("color");
+    filtersActive.classList.remove("color");
+    filtersAll.classList.remove("color");
   });
 }
 
