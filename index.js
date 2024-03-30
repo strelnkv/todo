@@ -18,7 +18,8 @@ function render() {
   doneTask.innerHTML = "";
 
   todoItems.forEach((item, index) => {
-    const taskHTML = `
+    const div = document.createElement("div");
+    div.innerHTML = `
 <div class="todo_list">
   <input class='input__check' type="checkbox" id="task-${index}" ${
       item.done ? "checked" : ""
@@ -30,9 +31,9 @@ function render() {
 </div>
 `;
     if (item.done) {
-      doneTask.innerHTML += taskHTML;
+      doneTask.prepend(div);
     } else {
-      todoList.innerHTML += taskHTML;
+      todoList.appendChild(div);
     }
   });
 
