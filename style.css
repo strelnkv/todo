@@ -71,7 +71,7 @@ h1 {
 }
 .input__check {
   appearance: none;
-  width: 20px;
+  width: 23px;
   height: 20px;
   border-radius: 50%;
   border: 1px solid #838590; /* цвет границы чекбокса */

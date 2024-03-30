@@ -3,6 +3,7 @@ const taskInput = document.querySelector(".main__input");
 const addButton = document.querySelector(".add__todo__btn");
 
 const todoList = document.querySelector(".input__list");
+const doneTask = document.querySelector(".done__list");
 const deleted = document.querySelector(".delete");
 
 let taskId = 0;
@@ -14,54 +15,37 @@ render();
 
 function render() {
   todoList.innerHTML = "";
-  console.log(todoItems);
-  for (let i = 0; i < todoItems.length; i++) {
-    // console.log(todoItems[i]);
-    const taskHTML = `
-  <div class = "todo_list">
-  <input class='input__check' type="checkbox" id="task-${i}" ${
-      todoItems[i].done ? "checked" : ""
-    }>
-  <label class='input todo ${
-    todoItems[i].done ? "line-through" : ""
-  }' for="task-${i}">${todoItems[i].task}</label>
-  <img
-    src="./images/recycle-bin (1).png"
-    alt=""
-    class="cart_img task-${i}"
+  doneTask.innerHTML = "";
 
-  />
-  </div>
-  `;
-    todoList.innerHTML += taskHTML;
-  }
+  todoItems.forEach((item, index) => {
+    const taskHTML = `
+<div class="todo_list">
+  <input class='input__check' type="checkbox" id="task-${index}" ${
+      item.done ? "checked" : ""
+    } data-index="${index}">
+  <label class="input todo ${
+    item.done ? "line-through" : ""
+  }" for="task-${index}">${item.task}</label>
+  <img src="./images/recycle-bin (1).png" alt="" class="cart_img" data-index="${index}">
+</div>
+`;
+    if (item.done) {
+      doneTask.innerHTML += taskHTML;
+    } else {
+      todoList.innerHTML += taskHTML;
+    }
+  });
+
   addCheckboxChangeEvent();
   deleteTask();
 }
+
 function addTodo(task) {
-  todoItems.push({ task, done: false });
   task = task.trim();
   if (task !== "") {
+    todoItems.push({ task, done: false });
     window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
-
-    todoList.innerHTML += `
-    <div class = "todo_list">
-    <input class='input__check' type="checkbox" id="task-${todoItems.length - 1}
-    ">
-    <label class='input todo' for="task-${todoItems.length - 1}">${
-      todoItems[todoItems.length - 1].task
-    }</label>
-    <img
-    src="./images/recycle-bin (1).png"
-    alt=""
-    class="cart_img task-${todoItems.length - 1}"
-
-  />
-    </div>
-    `;
-    taskInput.value = "";
-    addCheckboxChangeEvent();
-    deleteTask();
+    render();
   }
 }
 
@@ -69,35 +53,37 @@ function addTodoByEnter(event) {
   const task = taskInput.value.trim();
   if (task !== "" && event.key === "Enter") {
     addTodo(task);
+    taskInput.value = "";
   }
 }
 
 function addCheckboxChangeEvent() {
-  let labels = document.querySelectorAll("label");
-  document.querySelectorAll(".input__check").forEach((checkbox, index) => {
+  document.querySelectorAll(".input__check").forEach((checkbox) => {
     checkbox.addEventListener("change", function () {
-      if (this.checked) {
-        labels[index].classList.add("line-through");
-        todoItems[index].done = true;
-      } else {
-        labels[index].classList.remove("line-through");
-        todoItems[index].done = false;
-      }
+      const index = this.getAttribute("data-index"); // Получаем индекс из data атрибута
+      const isChecked = this.checked;
+
+      todoItems[index].done = isChecked;
       window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      render();
     });
   });
 }
 
 function deleteTask() {
   const carts = document.querySelectorAll(".cart_img");
+
   carts.forEach((cart) => {
-    cart.addEventListener("click", function (evt) {
-      const taskId = evt.target.className.split(" ")[1];
-      const index = taskId.split("-")[1];
-      todoItems.splice(index, 1);
-      window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
-      render();
-    });
+    cart.addEventListener(
+      "click",
+      function () {
+        const index = this.dataset.index;
+        todoItems.splice(index, 1);
+        window.localStorage.setItem("todoItems", JSON.stringify(todoItems));
+        render();
+      },
+      { once: true }
+    );
   });
 }
 
@@ -106,5 +92,6 @@ addButton.addEventListener("click", () => addTodo(taskInput.value.trim()));
 
 deleted.addEventListener("click", function () {
   window.localStorage.removeItem("todoItems");
-  todoList.innerHTML = "";
+  todoItems = [];
+  render();
 });
