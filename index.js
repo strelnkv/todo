@@ -6,12 +6,43 @@ const todoList = document.querySelector(".input__list");
 const doneTask = document.querySelector(".done__list");
 const deleted = document.querySelector(".delete");
 
+const filters = document.querySelector(".filters");
+const filtersAll = document.querySelector(".filters_all");
+const filtersActive = document.querySelector(".filters_active");
+const filtersFinished = document.querySelector(".filters_finished");
+
 let taskId = 0;
 let todoItems = window.localStorage.getItem("todoItems");
 
 todoItems = todoItems ? JSON.parse(todoItems) : [];
 
 render();
+
+function filter() {
+  const active = document.querySelector(".input__list");
+  const done = document.querySelector(".done__list");
+  todoItems.length === 0
+    ? filters.classList.add("none")
+    : filters.classList.remove("none");
+
+  filtersAll.innerHTML = `All(${todoItems.length})`;
+  filtersAll.addEventListener("click", function () {
+    todoList.classList.remove("none");
+    doneTask.classList.remove("none");
+  });
+
+  filtersActive.innerHTML = `Active(${active.children.length})`;
+  filtersActive.addEventListener("click", function () {
+    todoList.classList.remove("none");
+    doneTask.classList.add("none");
+  });
+
+  filtersFinished.innerHTML = `Finished(${done.children.length})`;
+  filtersFinished.addEventListener("click", function () {
+    doneTask.classList.remove("none");
+    todoList.classList.add("none");
+  });
+}
 
 function render() {
   todoList.innerHTML = "";
@@ -38,6 +69,7 @@ function render() {
 
   addCheckboxChangeEvent();
   deleteTask();
+  filter();
 }
 
 function addTodo(task) {

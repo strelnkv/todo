@@ -83,7 +83,7 @@ h1 {
   background-color: #a6fbc0;
 }
 .input__list {
-  padding-top: 30px;
+  padding-top: 10px;
 }
 .delete {
   cursor: pointer;
@@ -98,6 +98,18 @@ h1 {
   width: 17px;
   margin-right: 20px;
   cursor: pointer;
+}
+.filters {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  span {
+    color: grey;
+    cursor: pointer;
+  }
+}
+.none {
+  display: none;
 }
 @media (max-width: 440px) {
   .input {
