@@ -30,8 +30,8 @@ function allClick() {
   filtersActive.classList.remove("color");
   filtersFinished.classList.remove("color");
   todoList.children.length === 0
-    ? todoList.classList.add("none")
-    : todoList.classList.remove("none");
+    ? (todoList.classList.add("none"), deleted.classList.add("none"))
+    : (todoList.classList.remove("none"), deleted.classList.remove("none"));
 }
 
 function filter() {
