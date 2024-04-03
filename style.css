@@ -79,6 +79,12 @@ h1 {
 .delete {
   cursor: pointer;
   text-align: center;
+  margin-top: 40px;
+  border: none;
+  background-color: #24273c;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #838590;
 }
 .line-through {
   text-decoration: line-through;

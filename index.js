@@ -18,24 +18,43 @@ todoItems = todoItems ? JSON.parse(todoItems) : [];
 
 render();
 
+filtersAll.innerHTML = `All(${todoItems.length})`;
+filtersAll.addEventListener("click", allClick);
+
+function allClick() {
+  todoList.classList.remove("none");
+  doneTask.children.length === 0
+    ? doneTask.classList.add("none")
+    : doneTask.classList.remove("none");
+  filtersAll.classList.add("color");
+  filtersActive.classList.remove("color");
+  filtersFinished.classList.remove("color");
+  todoList.children.length === 0
+    ? todoList.classList.add("none")
+    : todoList.classList.remove("none");
+}
+
 function filter() {
   const active = document.querySelector(".input__list");
   const done = document.querySelector(".done__list");
+
+  allClick();
+
   if (todoItems.length === 0) {
     filters.classList.add("none");
   } else {
     filters.classList.remove("none");
     filtersAll.classList.add("color");
   }
-
-  filtersAll.innerHTML = `All(${todoItems.length})`;
-  filtersAll.addEventListener("click", function () {
-    todoList.classList.remove("none");
+  if (doneTask.children.length === 0) {
+    doneTask.classList.add("none");
+  } else {
     doneTask.classList.remove("none");
-    filtersAll.classList.add("color");
-    filtersActive.classList.remove("color");
-    filtersFinished.classList.remove("color");
-  });
+  }
+
+  if (todoList.children.length === 0) {
+    todoList.classList.add("none");
+  }
 
   filtersActive.innerHTML = `Active(${active.children.length})`;
   filtersActive.addEventListener("click", function () {
@@ -78,6 +97,8 @@ function render() {
       todoList.prepend(div);
     }
   });
+
+  allClick();
 
   addCheckboxChangeEvent();
   deleteTask();
