@@ -30,8 +30,8 @@ function allClick() {
   filtersActive.classList.remove("color");
   filtersFinished.classList.remove("color");
   todoList.children.length === 0
-    ? (todoList.classList.add("none"), deleted.classList.add("none"))
-    : (todoList.classList.remove("none"), deleted.classList.remove("none"));
+    ? todoList.classList.add("none")
+    : todoList.classList.remove("none");
 }
 
 function filter() {
@@ -42,9 +42,11 @@ function filter() {
 
   if (todoItems.length === 0) {
     filters.classList.add("none");
+    deleted.classList.add("none");
   } else {
     filters.classList.remove("none");
     filtersAll.classList.add("color");
+    deleted.classList.remove("none");
   }
   if (doneTask.children.length === 0) {
     doneTask.classList.add("none");
